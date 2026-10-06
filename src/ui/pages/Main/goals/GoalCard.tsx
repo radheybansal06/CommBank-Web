@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import { selectGoalsMap } from '../../../../store/goalsSlice'
 import { useAppDispatch, useAppSelector } from '../../../../store/hooks'
 import {
   setContent as setContentRedux,
@@ -14,7 +13,7 @@ type Props = { id: string }
 export default function GoalCard(props: Props) {
   const dispatch = useAppDispatch()
 
-  const goal = useAppSelector(selectGoalsMap)[props.id]
+  const goal = useAppSelector((state) => state.goals.map[props.id])
 
   const onClick = (event: React.MouseEvent) => {
     event.stopPropagation()
