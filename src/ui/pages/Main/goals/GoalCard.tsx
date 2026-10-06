@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import { selectGoalsMap } from '../../../../store/goalsSlice'
 import { useAppDispatch, useAppSelector } from '../../../../store/hooks'
 import {
   setContent as setContentRedux,
@@ -14,7 +13,7 @@ type Props = { id: string }
 export default function GoalCard(props: Props) {
   const dispatch = useAppDispatch()
 
-  const goal = useAppSelector(selectGoalsMap)[props.id]
+  const goal = useAppSelector((state) => state.goals.map[props.id])
 
   const onClick = (event: React.MouseEvent) => {
     event.stopPropagation()
@@ -27,12 +26,15 @@ export default function GoalCard(props: Props) {
 
   return (
     <Container key={goal.id} onClick={onClick}>
+      <Icon>{goal.icon}</Icon>
       <TargetAmount>${goal.targetAmount}</TargetAmount>
       <TargetDate>{asLocaleDateString(goal.targetDate)}</TargetDate>
     </Container>
   )
 }
-
+const Icon = styled.h1`
+  font-size: 5.5rem;
+`
 const Container = styled(Card)`
   display: flex;
   flex-direction: column;
